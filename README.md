@@ -13,4 +13,11 @@ The top sections of each of the code files assign the location of the selected v
 
 
 ## Master Code File
-There is also a master code file that calls each of the individual code files and organizes the resulting data into unique hospital/year combinations. [_HCRIS_Data.R](https://github.com/imccart/HCRIS/blob/master/data-code/HCRIS_Data.R)
+There is also a master code file that calls each of the individual code files and organizes the resulting data into unique hospital/year combinations: [_HCRIS_Data.R](https://github.com/imccart/HCRIS/blob/master/data-code/HCRIS_Data.R)
+
+In addition to very noisy data in general, there are two general issues with the HCRIS data that are resolved (at least, attempted to be resolved) in the master code file. 
+
+1. Negative values: Variables that reflect a "loss" or a discount are often intended to take positive values in the worksheets but may sometimes take negative values for certain hospitals in certain years. For the subset of variables in these code files, I take the absolute value of all such variables. This may or may not apply to any additional variables that you want to add. To be sure if this is a mistake in the data, check the worksheet instruments in the documentation. 
+
+2. Duplicate reports: Many hospitals change fiscal years at some point over the panel. Since HCRIS reports reflect data for each hospital's fiscal year, such a change will tend to result in more than one report for a given hospital in a given year. There also does not appear to be any systematic way in which hospitals submit data during these transitions. Some hospitals, for example, will transition with two reports that each cover less than a 12 month period; others will transition with one report that covers a longer period; and still others will transition with two reports that each cover a different 12 month period (one starting at the beginning of the original FY and going through the end of the original FY, and another starting at the new FY and ending at the new FY). The master code file collapses these instances with a series of different rules as commented in the code. The end result is a set of unique hospital/year combinations, where hospitals are defined by Medicare provider numbers and years are defined as hospital fiscal years.
+
