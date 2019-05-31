@@ -12,7 +12,6 @@ pacman::p_load(tidyverse, ggplot2, dplyr, lubridate)
 ########################################################################################
 path.code="D:\\CloudStation\\Professional\\Research Projects\\_Git\\HCRIS\\data-code"
 path.data="D:\\CloudStation\\Professional\\Research Projects\\_Git\\HCRIS\\data"
-path.temp="D:\\CloudStation\\Professional\\Research Data\\Hospital Cost Reports"
 
 
 ########################################################################################
@@ -36,23 +35,6 @@ final.hcris=rbind(final.hcris.v1996,final.hcris.v2010) %>%
 
 ## count of hospitals/provider_number by year
 final.hcris %>% group_by(fyear) %>% count()
-
-########################################################################################
-## Spot check with original data pull from SQL/Access
-########################################################################################
-HCRIS.check=read_csv(paste(path.temp,"\\Final HCRIS Data\\HospitalData_2008.txt",sep=""))
-final.hcris.v1996 %>% filter(provider_number==332008, year==2008) %>% select(beds,tot_charges,tot_discounts,tot_operating_exp,ip_charges)
-HCRIS.check %>% filter(Provider_Number==332008) %>% select(Beds,Tot_Charges,Tot_Discounts,Tot_OpExp,IP_Charges)
-
-final.hcris.v1996 %>% filter(provider_number==332008, year==2008) %>% select(ancillary_charges,tot_discharges,mcare_discharges,mcaid_discharges,tot_mcare_payment,secondary_mcare_payment)
-HCRIS.check %>% filter(Provider_Number==332008) %>% select(AncServ_Charges,Total_Discharges,Mcare_Discharges,Mcaid_Discharges,Tot_McarePymt,Sec_McarePymt)
-
-HCRIS.check=read_csv(paste(path.temp,"\\Final HCRIS Data\\HospitalData_2015.txt",sep=""))
-final.hcris.v2010 %>% filter(provider_number==332008, year==2015) %>% select(beds,tot_charges,tot_discounts,tot_operating_exp,ip_charges)
-HCRIS.check %>% filter(Provider_Number==332008) %>% select(Beds,Tot_Charges,Tot_Discounts,Tot_OpExp,IP_Charges)
-
-final.hcris.v2010 %>% filter(provider_number==332008, year==2015) %>% select(ancillary_charges,tot_discharges,mcare_discharges,mcaid_discharges,tot_mcare_payment,secondary_mcare_payment,hvbp_payment,hrrp_payment)
-HCRIS.check %>% filter(Provider_Number==332008) %>% select(AncServ_Charges,Total_Discharges,Mcare_Discharges,Mcaid_Discharges,Tot_McarePymt,Sec_McarePymt,HVBP_Payment,HRRP_Payment)
 
 
 ########################################################################################
@@ -157,10 +139,12 @@ unique.hcris4 =
   
 
 ########################################################################################
-## Create and save final datasets
+## Create and save final dataset
 ########################################################################################
 final.hcris.data=rbind(unique.hcris1, unique.hcris2, unique.hcris3, unique.hcris4)
 final.hcris.data =
   final.hcris.data %>%
   rename(year=fyear) %>%
   arrange(provider_number, year)
+
+write_tsv(final.hcris.data,path=paste(path.data,"\\HCRIS_Data.txt",sep=""),append=FALSE,col_names=TRUE)
