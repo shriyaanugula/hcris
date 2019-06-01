@@ -15,7 +15,7 @@ The top sections of each of the code files assign the location of the selected v
 ## Master Code File
 There is also a master code file that calls each of the individual code files and organizes the resulting data into unique hospital/year combinations: [_HCRIS_Data.R](https://github.com/imccart/HCRIS/blob/master/data-code/HCRIS_Data.R)
 
-In addition to very noisy data in general, there are two general issues with the HCRIS data that are resolved (at least, attempted to be resolved) in the master code file. 
+There are two common issues with the HCRIS data that are resolved (at least, attempted to be resolved) in the master code file. There are of course other issues that you will encounter when trying to work with these data, including missing variables in some years and clear evidence of misreporting in some cases, not to mention just very noisy data in general.
 
 1. Negative values: Variables that reflect a "loss" or a discount are often intended to take positive values in the worksheets but may sometimes take negative values for certain hospitals in certain years. For the subset of variables in these code files, I take the absolute value of all such variables. This may or may not apply to any additional variables that you want to add. To be sure if this is a mistake in the data, check the worksheet instruments in the documentation. 
 
