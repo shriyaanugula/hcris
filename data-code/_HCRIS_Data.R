@@ -1,7 +1,7 @@
 ########################################################################################
 ## Author:        Ian McCarthy
 ## Date Created:  5/30/2019
-## Date Edited:   5/30/2019
+## Date Edited:   11/1/2019
 ## Notes:         R file to call other HCRIS code and combine data
 ########################################################################################
 if (!require("pacman")) install.packages("pacman")
@@ -10,15 +10,19 @@ pacman::p_load(tidyverse, ggplot2, dplyr, lubridate)
 ########################################################################################
 ## Set file paths
 ########################################################################################
-path.code="D:\\CloudStation\\Professional\\Research Projects\\_Git\\HCRIS\\data-code"
-path.data="D:\\CloudStation\\Professional\\Research Projects\\_Git\\HCRIS\\data"
+path.code=...
+path.data=...
 
 
 ########################################################################################
 ## Combine different HCRIS versions (1996 and 2010)
 ########################################################################################
+path.raw=...
 source(paste(path.code,"\\H1_HCRISv1996.R",sep=""),local=TRUE,echo=FALSE)
+
+path.raw=...
 source(paste(path.code,"\\H2_HCRISv2010.R",sep=""),local=TRUE,echo=FALSE)
+
 
 ## create missing variables for columns introduced in v2010 of hcris forms
 final.hcris.v1996 = final.hcris.v1996 %>%
@@ -148,3 +152,4 @@ final.hcris.data =
   arrange(provider_number, year)
 
 write_tsv(final.hcris.data,path=paste(path.data,"\\HCRIS_Data.txt",sep=""),append=FALSE,col_names=TRUE)
+write_rds(final.data,paste(path.data.final,"\\HCRIS_Data.rds",sep=""))
