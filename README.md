@@ -13,7 +13,7 @@ The top sections of each of the code files assign the location of the selected v
 
 
 ## Master Code File
-There is also a master code file that calls each of the individual code files and organizes the resulting data into unique hospital/year combinations: [_HCRIS_Data.R](https://github.com/imccart/HCRIS/blob/master/data-code/HCRIS_Data.R)
+There is also a master code file that calls each of the individual code files and organizes the resulting data into unique hospital/year combinations: [_HCRIS_Data.R](https://github.com/imccart/HCRIS/blob/master/data-code/_HCRIS_Data.R)
 
 There are two common issues with the HCRIS data that are resolved (at least, attempted to be resolved) in the master code file. There are of course other issues that you will encounter when trying to work with these data, including missing variables in some years and clear evidence of misreporting in some cases, not to mention just very noisy data in general.
 
