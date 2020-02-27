@@ -74,3 +74,4 @@ for (i in 1998:2011) {
   }
   
 }
+write_rds(final.hcris.v1996,'data/HCRIS_Data_v1996.rds')
